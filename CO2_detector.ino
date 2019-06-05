@@ -66,7 +66,7 @@ void setup() {
 }
 
 void loop() { 
-  if((gasSensor.getRZero() >= gasSensor.getNominalRZero()-10) && !sensorPreHeated)
+  if((gasSensor.getRZero() >= gasSensor.getNominalRZero()*0.6) && !sensorPreHeated)
   {
     sensorPreHeated = true;
   }
@@ -90,7 +90,7 @@ void loop() {
   else
   {
     disp.clear();
-    int perc = (gasSensor.getRZero()/(gasSensor.getNominalRZero()-10))*100;
+    int perc = (gasSensor.getRZero()/(gasSensor.getNominalRZero()*0.6))*100;
     disp.set(LED_0F[23], 3);//P
     disp.digit4(perc);
     delay(5000);
