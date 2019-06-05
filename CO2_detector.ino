@@ -75,13 +75,24 @@ void loop() {
      float ppm = filter(gasSensor.getPPM());
      if(millis()-lastMillis > 1500)
      {
-        lastMillis = millis();
-        disp.clear();
-        disp.digit4(round(ppm));
+        if(ppm<3000.0)
+        {
+          lastMillis = millis();
+          disp.clear();
+          disp.digit4(round(ppm));
+        }
+        else
+        {
+          sensorPreHeated = false;
+        }
      }
   }
   else
   {
+    disp.clear();
+    int perc = (gasSensor.getRZero()/(gasSensor.getNominalRZero()-10))*100;
+    disp.set(LED_0F[23], 3);//P
+    disp.digit4(perc);
     delay(5000);
   }
 }
